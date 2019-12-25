@@ -169,6 +169,7 @@ module.exports = {
 
 ### 2.6 source map的使用
 官网说明：https://www.webpackjs.com/guides/development/#%E4%BD%BF%E7%94%A8-source-map
+不同的选项配置：https://www.webpackjs.com/configuration/devtool/
 
 推荐：
 ```javascript
@@ -178,6 +179,46 @@ module.exports = {
 }
 ```
 
+### 2.7 推荐的几款插件
+* clean-webpack-plugin
+该插件可以用于自动清除dist目录后重新打包生成，在npm run build的时候非常方便
+
+安装：npm i clean-webpack-plugin -D
+
+使用：在配置文件中的plugins中直接创建对象即可
+```javascript
+plugins: [
+  new CleanWebpackPlugin()
+]
+```
+
+* copy-webpack-plugin
+安装：npm i copy-webpack-plugin -D
+
+使用：
+```javascript
+const copyWebpackplugin = require('copy-webpack-plugin')
+
+plugins: [
+  new copyWebpackplugin({
+    from: path.join(__dirname, 'assets'),
+    to: 'assets'
+  })
+]
+```
+from: 从哪里拷贝，可以是相对路径或者绝对路径，推荐绝对路径
+to: 拷贝到哪里去，相对于output的路径，也可以是相对路径或者绝对路径，推荐相对路径
+
+* BannerPlugin
+webpack内置插件，用于给打包的js文件加上版权注释信息
+直接引入
+```javascript
+const webpack = require('webpack')
+
+plugins: [
+  new webpack.BannerPlugin('欧阳泽宇')
+]
+```
 
 
 持续更新。。。

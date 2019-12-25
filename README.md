@@ -1,3 +1,5 @@
+此项目是作为个人学习webpack的一个归档，也可供初学者进行参考。
+
 # 一、webpack基础
 ## 1 webpack的安装：
 首先需要先安装好node.js最新版本
@@ -59,10 +61,123 @@ plugins: [
 * 打包时会自动生成index.html
 
 ### 2.3 处理CSS文件
-安装 npm i css-loader style-loader -D
+* 安装 npm i css-loader style-loader -D
+
+* 配置webpack.config.js
+
+```javascript
+module: {
+    rules: [
+      {
+        test: /\.css$/,
+        // webpack读取loader时是从右到左，或者是从下往上，所以要注意顺序
+        use: ['style-loader', 'css-loader']
+      }
+    ]
+  }
+```
 
 ### 2.4 处理 less和sass文件
+* 安装 npm i less less-loader sass-loader node-sass -D
 
-### 2.5 处理图片和字体的其他文件
+* 配置webpack.config.js
+
+```javascript
+ {
+    test: /\.less$/,
+    se: ['style-loader', 'css-loader', 'less-loader']
+  },
+  {
+    test: /\.s(a|c)ss$/,
+    use: ['style-loader', 'css-loader', 'sass-loader']
+  }
+```
+
+### 2.5 处理图片和字体文件
+* 安装 npm i file-loader url-loader -D
+url-loader封装了file-loader
+
+* 配置
+```javascript
+{
+  test: /\.(jpg|png|bmp|gif)$/,
+  use: {
+    loader: 'url-loader',
+    options: {
+      // 图片小于5kb就专成base64格式的，大于5kb就以路径的形式展示
+      limit: 5 * 1024,
+      // 指定图片的输出目录
+      outputPath: 'images',
+      // 自定义图片的名字
+      name: '[name]-[hash:4].[ext]'
+    }
+  }
+},
+{
+  test: /\.(woff|woff2|eot|svg|ttf)$/,
+  use: 'file-loader'
+}
+```
+
+### 2.5 babel
+* 安装 npm i babel-loader @babel/core @babel/preset-env -D
+
+* 如果需要支持更高级的js语法，需要安装插件(在babel官网可以查看相应的插件)
+npm i @babel/plugin-proposal-class-properties -D
+
+* 配置
+```javascript
+{
+  test: /\.js$/,
+  use: {
+    loader: 'babel-loader',
+    options: {
+      presets: ['@babel/env'],
+      plugins: [
+        '@babel/plugin-transform-runtime'
+      ]
+    }
+  },
+  exclude: /node_modules/
+}
+```
+官方推荐的是在项目根目录下新建一个.babelrc的babel配置文件,他是一个json格式的文件。
+
+```jason
+{
+  "presets": ["@babel/env"],
+  "plugins": [
+    "@babel/plugin-transform-runtime"
+  ]
+}
+```
+* 对于es6或es7等更高版本提供的对象原型上的新方法，babel并不会去处理，即使用了transform-runtime插件也不行。
+需要使用另一个模块： npm i @babel/polyfill -S
+
+该模块需要在使用新方法的地方直接引入：
+```javascript
+import '@babel/polyfill'
+let str = '123'
+console.log(str.includes('2'))
+```
+或者在weback配置文件入口处配置：
+```javascript
+module.exports = {
+  entry: ['@babel/polyfill', './src/main.js'],
+}
+```
+
+### 2.6 source map的使用
+官网说明：https://www.webpackjs.com/guides/development/#%E4%BD%BF%E7%94%A8-source-map
+
+推荐：
+```javascript
+module.exports = {
+  // suorce map
+  devtool: 'cheap-module-eval-source-map'
+}
+```
+
+
 
 持续更新。。。

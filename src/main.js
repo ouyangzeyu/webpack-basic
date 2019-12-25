@@ -62,3 +62,9 @@ console.log(newFn.next()) // 1
 console.log(newFn.next()) // 2
 console.log(newFn.next()) // 3
 console.log(newFn.next()) // undefined
+
+//对于es6或es7等更高版本提供的对象原型上的新方法，babel并不会去处理
+// 需要安装@babel/polyfill进行支持
+import '@babel/polyfill'
+let str = '123'
+console.log(str.includes('2'))

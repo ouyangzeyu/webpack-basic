@@ -64,15 +64,18 @@ module.exports = {
         test: /\.js$/,
         use: {
           loader: 'babel-loader',
-          options: {
-            presets: ['@babel/env'],
-            plugins: [
-              '@babel/plugin-transform-runtime'
-            ]
-          }
+          // 下面的配置都可以独立抽离到.babelrc文件中，官方也推荐这么做
+          // options: {
+          //   presets: ['@babel/env'],
+          //   plugins: [
+          //     '@babel/plugin-transform-runtime'
+          //   ]
+          // }
         },
         exclude: /node_modules/
       }
     ]
-  }
+  },
+  // suorce map
+  devtool: 'cheap-module-eval-source-map'
 }

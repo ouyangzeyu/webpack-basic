@@ -187,6 +187,12 @@ module.exports = {
 
 使用：在配置文件中的plugins中直接创建对象即可
 ```javascript
+// 之前的写法
+// const CleanWebpackPlugin = require('clean-webpack-plugin')
+
+// 最新的写法是需要解构出来的，否则会报错CleanWebpackPlugin is not a constructor
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+
 plugins: [
   new CleanWebpackPlugin()
 ]

@@ -2,6 +2,8 @@
 
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const webpack = require('webpack')
 
 module.exports = {
   entry: './src/main.js', // 默认是index.js
@@ -25,7 +27,8 @@ module.exports = {
       filename: 'index.html',
       template: './src/index.html'
     }),
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
+    new webpack.BannerPlugin('欧阳泽宇')
   ],
   module: {
     rules: [

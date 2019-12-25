@@ -1,6 +1,7 @@
 此项目是作为个人学习webpack的一个归档，也可供初学者进行参考。
 
 # 一、webpack基础
+
 ## 1 webpack的安装：
 首先需要先安装好node.js最新版本
 ### 1.1 全局安装：
@@ -224,6 +225,20 @@ const webpack = require('webpack')
 plugins: [
   new webpack.BannerPlugin('欧阳泽宇')
 ]
+```
+
+
+# 二、 webpack高级配置
+
+## html中img标签的图片资源处理
+* 安装：npm i html-withing-loader -S
+
+* 在webpack.config.js中添加loader
+```javascript
+{
+  test: /\.(html|html)$/i,
+  loader: 'html-withing-loader'
+}
 ```
 
 

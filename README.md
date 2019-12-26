@@ -294,6 +294,19 @@ new webpack.ProvidePlugin({
 })
 ```
 
+## development/production 不同配置文件打包
+项目开发时一般需要使用两套配置文件，开发阶段打包不需要压缩，上线阶段是需要压缩并优化的。
+1 可以抽离三个配置文件：
+* webpack.base.js: 公用的基础配置
+
+* webpack.prod.js：生产环境的配置
+
+* webpack.dev.js：开发环境的配置
+
+2 在div和prod中使用webpack-merge把自己的配置与base配置进行合并导出
+
+3 将package.json中的脚本参数进行修改，通过--config手动指定特定的配置文件
+
 
 
 持续更新。。。

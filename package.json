@@ -6,10 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "buildcustom": "webpack --config webpack.custom.config.js",
-    "build": "webpack",
+    "build": "webpack --config ./webpack.prod.js",
     "watch": "webpack --watch",
     "dev2": "webpack-dev-server --compress --contentBase src --hot --open --port 8080",
-    "dev": "webpack-dev-server"
+    "dev": "webpack-dev-server --config ./webpack.dev.js"
   },
   "keywords": [],
   "author": "",

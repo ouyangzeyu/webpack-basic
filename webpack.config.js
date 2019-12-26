@@ -7,12 +7,18 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 
 module.exports = {
-  entry: './src/main.js', // 默认是index.js
+  // entry: './src/main.js', // 默认是index.js
+
+  entry: { // 多页应用的路口配置
+    index: './src/index.js',
+    other: './src/other.js'
+  },
   output: {
     // path.resolve():把当前相对路径解析成绝对路径
     // path.join(__dirname, './dist/'):拼接路径
     path: path.resolve('./dist/'),
-    filename: 'bundle.js'
+    // filename: 'bundle.js'
+    filename: '[name].js' // 配合多页应用打包，输出文件也需要对应多个，所以要用变量动态生成
   },
   // watch: true, // 开启监视模式
   mode: 'production', // production会是默认值，会进行压缩
@@ -26,7 +32,14 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: './src/index.html'
+      template: './src/index.html',
+      // chunks数组里面的名字对应的是entry中的名字
+      chunks: ['index']
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'other.html',
+      template: './src/other.html',
+      chunks: ['other']
     }),
     // new CleanWebpackPlugin(),
     // new CopyWebpackPlugin([

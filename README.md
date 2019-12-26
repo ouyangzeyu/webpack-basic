@@ -242,6 +242,37 @@ plugins: [
   loader: 'html-withimg-loader'
 }
 ```
+使用时只需要在html中正常引用图片即可，webpack会找到对应的资源进行打包，并修改html中的引用路径
+
+## 多页应用打包
+* 修改webpack.config.js文件中入口、出口和plugin的配置
+```javascript
+entry: { // 多页应用的路口配置
+  index: './src/index.js',
+  other: './src/other.js'
+},
+output: {
+  filename: '[name].js' // 配合多页应用打包，输出文件也需要对应多个，所以要用变量动态成
+},
+plugin: [
+  new HtmlWebpackPlugin({
+    filename: 'index.html',
+    template: './src/index.html',
+    // chunks数组里面的名字对应的是entry中的名字
+    chunks: ['index']
+  }),
+  new HtmlWebpackPlugin({
+    filename: 'other.html',
+    template: './src/other.html',
+    chunks: ['other']
+  }),
+]
+```
+
+## 第三方库的两种引入方式
+
+
+
 
 
 持续更新。。。

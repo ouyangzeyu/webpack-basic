@@ -330,5 +330,16 @@ prod配置文件中同理
 3 将package.json中的脚本参数进行修改，通过--config手动指定特定的配置文件
 
 
+## 环境变量的配置
+```javascript
+plugins: [
+  new webpack.DefinePlugin({
+    IS_DEV: 'true'
+    // 定义字符串的话要引号里面套引号，否则会当成变量处理
+    // 如：str: '"张三"'
+  })
+]
+```
+这样IS_DEV就是一个全局的变量了，任何项目中的js文件中都能使用它
 
 持续更新。。。

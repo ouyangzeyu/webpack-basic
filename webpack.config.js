@@ -2,7 +2,8 @@
 
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+// const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+// const CopyWebpackPlugin = require('copy-webpack-plugin')
 const webpack = require('webpack')
 
 module.exports = {
@@ -27,7 +28,13 @@ module.exports = {
       filename: 'index.html',
       template: './src/index.html'
     }),
-    new CleanWebpackPlugin(),
+    // new CleanWebpackPlugin(),
+    // new CopyWebpackPlugin([
+    //   {
+    //     from: path.join(__dirname, 'assets'),
+    //     to: 'assets'
+    //   }
+    // ]),
     new webpack.BannerPlugin('欧阳泽宇')
   ],
   module: {
@@ -77,9 +84,13 @@ module.exports = {
           // }
         },
         exclude: /node_modules/
+      },
+      {
+        test: /\.(htm|html)$/i,
+        loader: 'html-withimg-loader'
       }
     ]
   },
-  // suorce map
+  // source map
   devtool: 'cheap-module-eval-source-map'
 }

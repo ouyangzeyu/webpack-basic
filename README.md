@@ -204,13 +204,15 @@ plugins: [
 
 使用：
 ```javascript
-const copyWebpackplugin = require('copy-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 plugins: [
-  new copyWebpackplugin({
-    from: path.join(__dirname, 'assets'),
-    to: 'assets'
-  })
+  new CopyWebpackPlugin([
+    {
+      from: path.join(__dirname, 'assets'),
+      to: 'assets'
+    }
+  ]),
 ]
 ```
 from: 从哪里拷贝，可以是相对路径或者绝对路径，推荐绝对路径
@@ -231,13 +233,13 @@ plugins: [
 # 二、 webpack高级配置
 
 ## html中img标签的图片资源处理
-* 安装：npm i html-withing-loader -S
+* 安装：npm i html-withimg-loader -S
 
 * 在webpack.config.js中添加loader
 ```javascript
 {
-  test: /\.(html|html)$/i,
-  loader: 'html-withing-loader'
+  test: /\.(htm|html)$/i,
+  loader: 'html-withimg-loader'
 }
 ```
 

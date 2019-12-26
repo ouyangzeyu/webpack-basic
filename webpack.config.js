@@ -34,7 +34,7 @@ module.exports = {
       filename: 'index.html',
       template: './src/index.html',
       // chunks数组里面的名字对应的是entry中的名字
-      chunks: ['index']
+      chunks: ['index', 'other']
     }),
     new HtmlWebpackPlugin({
       filename: 'other.html',
@@ -48,7 +48,11 @@ module.exports = {
     //     to: 'assets'
     //   }
     // ]),
-    new webpack.BannerPlugin('欧阳泽宇')
+    new webpack.BannerPlugin('欧阳泽宇'),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jquery: 'jquery'
+    })
   ],
   module: {
     rules: [
@@ -98,9 +102,17 @@ module.exports = {
         },
         exclude: /node_modules/
       },
+      // {
+      //   test: /\.(htm|html)$/i,
+      //   loader: 'html-withimg-loader'
+      // }
       {
-        test: /\.(htm|html)$/i,
-        loader: 'html-withimg-loader'
+        // 解析jqeury的绝对路径
+        test: require.resolve('jquery'),
+        use: {
+          loader: 'expose-loader',
+          options: '$'
+        }
       }
     ]
   },

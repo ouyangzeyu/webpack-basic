@@ -274,9 +274,25 @@ plugin: [
 * expose-loader：将库引入到全局作用域
 安装：npm i expose-loader -D
 配置：
+```javasript
+{
+  // 解析jqeury的绝对路径
+  test: require.resolve('jquery'),
+  use: {
+    loader: 'expose-loader',
+    options: '$'
+  }
+}
+```
 
 * webpack.ProvidePlugin：将库自动加载到每个模块
-引入：
+plugin中配置
+```javascript
+new webpack.ProvidePlugin({
+  $: 'jquery',
+  jquery: 'jquery'
+})
+```
 
 
 

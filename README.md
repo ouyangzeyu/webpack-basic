@@ -270,8 +270,13 @@ plugin: [
 ```
 
 ## 第三方库的两种引入方式
+可以通过expose-loader进行全局变量的注入，也可以使用内置插件webpack.ProvidePlugin对每个模块的闭包空间注入一个变量自动加载模块，而不必到处去import或者require
+* expose-loader：将库引入到全局作用域
+安装：npm i expose-loader -D
+配置：
 
-
+* webpack.ProvidePlugin：将库自动加载到每个模块
+引入：
 
 
 

@@ -303,7 +303,29 @@ new webpack.ProvidePlugin({
 
 * webpack.dev.js：开发环境的配置
 
-2 在div和prod中使用webpack-merge把自己的配置与base配置进行合并导出
+抽离后要注意配置文件中使用到绝对路径的地方，需要往上翻一层级！
+
+2 在dev和prod中使用webpack-merge把自己的配置与base配置进行合并导出
+安装：npm i webpack-merge -D
+如dev配置文件中：
+```javascript
+const merge = require('webpack-merge')
+const baseConfig = require('./webpack.base.js')
+
+module.exports = merge(baseConfig, {
+  mode: 'development', // production会是默认值，会进行压缩
+  devServer: {
+    open: true,
+    port: 3000,
+    compress: true,
+    // contentBase: './src',
+    hot: true
+  },
+  // source map
+  devtool: 'cheap-module-eval-source-map'
+})
+```
+prod配置文件中同理
 
 3 将package.json中的脚本参数进行修改，通过--config手动指定特定的配置文件
 

@@ -16,7 +16,8 @@ module.exports = {
   output: {
     // path.resolve():把当前相对路径解析成绝对路径
     // path.join(__dirname, './dist/'):拼接路径
-    path: path.resolve('./dist/'),
+    // path: path.resolve('./dist/'),
+    path: path.join(__dirname, '..', './dist'),
     // filename: 'bundle.js'
     filename: '[name].js' // 配合多页应用打包，输出文件也需要对应多个，所以要用变量动态生成
   },
@@ -36,7 +37,7 @@ module.exports = {
     // new CleanWebpackPlugin(),
     // new CopyWebpackPlugin([
     //   {
-    //     from: path.join(__dirname, 'assets'),
+    //     from: path.join(__dirname, '..', 'assets'),
     //     to: 'assets'
     //   }
     // ]),
@@ -97,7 +98,7 @@ module.exports = {
       // {
       //   test: /\.(htm|html)$/i,
       //   loader: 'html-withimg-loader'
-      // }
+      // },
       {
         // 解析jqeury的绝对路径
         test: require.resolve('jquery'),

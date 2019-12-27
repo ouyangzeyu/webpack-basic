@@ -342,4 +342,26 @@ plugins: [
 ```
 这样IS_DEV就是一个全局的变量了，任何项目中的js文件中都能使用它
 
+## 跨域问题及解决方案
+目前主要的方案有：
+jsonp(被淘汰了)，非官方的方案，而且默认是get方式请求，无法修改。
+cors(目前最流行的)，主要由后端工程师支持
+http proxy代理请求(推荐使用)
+
+* 使用devServer解决跨域问题，其实原理就是用的http proxy
+```javascript
+devServer: {
+  proxy: {
+    // 当前端请求api地址时会将请求转发到http://localhost:9999
+    '/api': {
+      target: 'http://localhost:9999',
+      pathRewrite: { // 重写路径，转发请求时就不会携带/api了
+        '^/api': ''
+      }
+    }
+  }
+}
+```
+
+
 持续更新。。。

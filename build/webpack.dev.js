@@ -10,7 +10,16 @@ module.exports = merge(baseConfig, {
     port: 3000,
     compress: true,
     // contentBase: './src',
-    hot: true
+    hot: true, // 开启热更新
+    proxy: {
+      // 当前端请求api地址时会将请求转发到http://localhost:9999
+      '/api': {
+        target: 'http://localhost:9999',
+        pathRewrite: { // 重写路径，转发请求时就不会携带/api了
+          '^/api': ''
+        }
+      }
+    }
   },
   // source map
   devtool: 'cheap-module-eval-source-map',

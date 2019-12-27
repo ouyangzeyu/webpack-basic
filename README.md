@@ -363,5 +363,56 @@ devServer: {
 }
 ```
 
+# 三、 webpack优化
+1 production模式打包自带优化
+* tree shaking
+用于打包时移除js中未引用的代码，使用es6的import和export才能实现，require不行
+
+* scope hoisting
+作用是将模块之间的关系进行结果推测，可以让webpack打包出来的代码文件更小、运行更快
+原理就是分析出模块之间的依赖关系，尽可能的把打散的模块合并到一个函数中去，但是前提是不能造成代码的冗余
+因此只有那些被引用了一次的模块才能被合并
+
+* 代码压缩
+
+
+2 css优化
+* 将css抽取到独立的文件中
+需要用到mini-css-extract-plugin插件,对每个包含css的js文件都会创建一个css文件
+安装：npm i mini-css-extract-plugin -D
+配置：
+```javascript
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
+new MiniCssExtractPlugin({
+  filename: '[name].css'
+})
+```
+最后还需要将原来配置的所有style-loader替换为MiniCssExtractPlugin.loader
+```javascript
+{
+  test: /\.css$/,
+  use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
+}
+```
+
+* 自动添加css前缀
+PostCss工具，需要用到postcss-loader和autoprefixer插件
+安装：npm i postcss-loader autoprefixer -D
+
+需要放在css-loader的右边，因为他需要先对css做添加前缀处理
+项目根目录新建一个postcss.config.js的配置文件
+```javascript
+module.exports = {
+  plugins: [require('autoprefixer')]
+}
+```
+
+* css压缩
+需要使用potimize-css-assets-webpack-plugin插件
+
+
+
+
 
 持续更新。。。

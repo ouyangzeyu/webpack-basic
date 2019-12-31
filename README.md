@@ -411,6 +411,7 @@ module.exports = {
 * css压缩
 需要使用potimize-css-assets-webpack-plugin插件
 
+但有个注意点是，该插件安装后需要配置optimazation对象，会对其默认的配置进行覆盖，所以js压缩会失效，需要我们手动引入js压缩插件重新进行配置
 
 
 

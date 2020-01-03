@@ -413,6 +413,30 @@ module.exports = {
 
 但有个注意点是，该插件安装后需要配置optimazation对象，会对其默认的配置进行覆盖，所以js压缩会失效，需要我们手动引入js压缩插件重新进行配置
 
+3 js优化(重要)
+code splitting特性：把代码分离到不同的bundle中，然后可以按需加载或者并行加载这些文件。
+常用的三种分离方式：
+* 入口起点：使用entry配置手动的分离(极不推荐)
+
+* 防止重复：使用webpack4内置插件SplitChunksPlugin去重、分离chunk
+```javascript
+optimization: {
+  splitChunks: {
+    chunks: 'all'
+  }
+}
+```
+打包后会生成一个vendors名称开头的js文件，他就是公共依赖的js文件，比如两个js文件都引用了jquery，那么vendors文件就是打包的jquery代码
+
+* 动态导入：通过模块的内联函数调用来分离代码(最常用的模式)
+webpack4默认是允许import语法动态导入的，但是需要babel的插件来支持'@babel/plugin-syntax-dynamic-import'
+动态导入的最大的好处就是实现了懒加载，用到哪个模块才会加载哪个模块
+1 安装：npm i @babel/plugin-syntax-dynamic-import -D
+2 配置.babelrc配置文件
+3 这时已经可以实现动态导入了，如jquery:
+```javascript
+import('jquery').then(({ default: $ }) => {})
+```
 
 
 
